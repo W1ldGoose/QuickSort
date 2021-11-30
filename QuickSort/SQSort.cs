@@ -4,8 +4,12 @@ namespace QuickSort
 {
     public static partial class QuickSort
     {
-        public static int threshold = 150; // array length to use InsertionSort instead of SequentialQuickSort
+        // длина массива для использования InsertionSort вместо SequentialQuickSort
+        public static int threshold = 150;
 
+        // сортировка вставками 
+        //  в котором элементы входной последовательности просматриваются по одному,
+        // и каждый новый поступивший элемент размещается в подходящее место среди ранее упорядоченных элементов
         public static void InsertionSort<T>(T[] array, int from, int to) where T : IComparable<T>
         {
             for (int i = from + 1; i < to; i++)
@@ -13,7 +17,7 @@ namespace QuickSort
                 var a = array[i];
                 int j = i - 1;
                 
-                 while (j >= from && array[j].CompareTo(a) == -1)
+                 while (j >= from && array[j].CompareTo(a) != -1)
                 {
                     array[j + 1] = array[j];
                     j--;
@@ -22,7 +26,7 @@ namespace QuickSort
                 array[j + 1] = a;
             }
         }
-
+        // метод для обмена местами
         static void Swap<T>(T[] array, int i, int j) where T : IComparable<T>
         {
             var temp = array[i];
@@ -30,27 +34,24 @@ namespace QuickSort
             array[j] = temp;
         }
 
+        // метод для поиска новой опороной точки и разделения элементов по отрезкам
         static int Partition<T>(T[] array, int from, int to, int pivot) where T : IComparable<T>
         {
-            // Pre: from <= pivot < to (other than that, pivot is arbitrary)
-            var arrayPivot = array[pivot]; // pivot value
-            Swap(array, pivot, to - 1); // move pivot value to end for now, after this pivot not used
-            var newPivot = from; // new pivot 
-            for (int i = from; i < to - 1; i++) // be careful to leave pivot value at the end
+            var arrayPivot = array[pivot]; 
+            // перемещаем опорную точку в конец, после этого она не используется
+            Swap(array, pivot, to - 1); 
+            var newPivot = from; 
+            for (int i = from; i < to - 1; i++) 
             {
-                // Invariant: from <= newpivot <= i < to - 1 && 
-                // forall from <= j <= newpivot, array[j] <= arrayPivot && forall newpivot < j <= i, array[j] > arrayPivot
-                //if (array[i] <= arrayPivot)
-                if (array[i].CompareTo(arrayPivot) != -1)
+                if (array[i].CompareTo(arrayPivot) == -1)
                 {
-                    Swap(array, newPivot, i); // move value smaller than arrayPivot down to newpivot
+                    Swap(array, newPivot, i);
                     newPivot++;
                 }
             }
 
-            Swap(array, newPivot, to - 1); // move pivot value to its final place
-            return newPivot; 
-            // Post: forall i <= newpivot, array[i] <= array[newpivot]  && forall i > ...
+            Swap(array, newPivot, to - 1); 
+            return newPivot;
         }
 
         public static void SerialQuickSort<T>(T[] array) where T : IComparable<T>
@@ -68,7 +69,7 @@ namespace QuickSort
             {
                 // можно взять любую опорную точку, здесь середина
                 int pivot = from + (to - from) / 2; 
-                pivot = Partition<T>(array, from, to, pivot);
+                pivot = Partition(array, from, to, pivot);
                 SerialQuickSort(array, from, pivot);
                 SerialQuickSort(array, pivot + 1, to);
             }

@@ -19,7 +19,6 @@ namespace QuickSort
             }
             else
             {
-                
                 int pivot = from + (to - from) / 2;
                 pivot = Partition(array, from, to, pivot);
                 if (depthRemaining > 0)

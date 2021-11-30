@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>QuickSort.Program.BenchmarkTest-20211130-060945</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19041.1348 (2004/May2020Update/20H1)
+Intel Core i5-7400 CPU 3.00GHz (Kaby Lake), 1 CPU, 4 logical and 4 physical cores
+.NET SDK=5.0.402
+  [Host]     : .NET 5.0.11 (5.0.1121.47308), X64 RyuJIT
+  Job-QPZBCL : .NET 5.0.11 (5.0.1121.47308), X64 RyuJIT
+</code></pre>
+<pre><code>RunStrategy=Throughput  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th> N</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Rank</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>ParallelTest</td><td>1000000</td><td>8.054 ms</td><td>0.1533 ms</td><td>0.1640 ms</td><td>1</td><td>218.7500</td><td>682,730 B</td>
+</tr><tr><td>SerialTest</td><td>1000000</td><td>25.023 ms</td><td>0.3228 ms</td><td>0.3020 ms</td><td>2</td><td>-</td><td>-</td>
+</tr><tr><td>ParallelTest</td><td>10000000</td><td>215.917 ms</td><td>3.2099 ms</td><td>2.6804 ms</td><td>3</td><td>6666.6667</td><td>21,333,677 B</td>
+</tr><tr><td>SerialTest</td><td>10000000</td><td>769.202 ms</td><td>10.4976 ms</td><td>9.3058 ms</td><td>4</td><td>-</td><td>-</td>
+</tr></tbody></table>
+</body>
+</html>
